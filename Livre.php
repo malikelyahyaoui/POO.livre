@@ -1,84 +1,76 @@
-
 <?php
+class Livre {
+   private string $titre;
+   private int $nombrePages;
+   private int $anneeParution;
+   private float $prix;
+   private Auteur $auteur;
+   
+   public function __construct(string $titre, int $nombrePages, int $anneeParution, float $prix, Auteur $auteur) {
+       $this->titre = $titre;
+       $this->nombrePages = $nombrePages;
+       $this->anneeParution = $anneeParution;
+       $this->prix = $prix;
+       $this->auteur = $auteur;
+       $this->auteur->ajouterLivre($this);
+ 
+   }
 
-class Auteur {
+   public function getAuteur() : Auteur {
+    return $this-> auteur;
+   }
 
-    private string $nom;
-    private string $prenom;
-    private array $livres;
+   public function setAuteur($auteur){
+      $this->auteur = $auteur;
+     return $this;
+   }
 
-    public function __construct(string $nom, string $prenom){
+   public function getTitre(){
+      return $this->titre;
+   }
 
-        $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->livres = [];
+   public function setTitre($titre){
+      $this->titre = $titre;
 
-    }
+      return $this;
+   }
+ 
+   public function getNombrePages(){
+      return $this->nombrePages;
+   }
 
-    public function getNom(): string {
+   public function setNombrePages($nombrePages){
+      $this->nombrePages = $nombrePages;
 
-        return $this->nom;
+      return $this;
+   }
 
-    }
+   public function getAnneeParution(){
+      return $this->anneeParution;
+   }
+ 
+   public function setAnneeParution($anneeParution)
+   {
+      $this->anneeParution = $anneeParution;
 
-    public function setNom(string $nom){
+      return $this;
+   }
 
-        $this->nom = $nom;
+   public function getPrix()
+   {
+      return $this->prix;
+   }
 
-    }
+   public function setPrix($prix)
+   {
+      $this->prix = $prix;
 
-    public function getPrenom(): string {
+      return $this;
+   }
 
-        return $this->prenom;
+   public function __toString(): string {
+      return "{$this->titre} ({$this->anneeParution}) : {$this->nombrePages} pages / {$this->prix}€ <br>";
+  }
 
-    }
-
-    public function setPrenom(string $prenom){
-
-        $this->prenom = $prenom;
-
-    }
-
-    public function getLivres(): array {
-
-        return $this->livres;
-
-    }
-
-    public function setLivres(array $livres){
-
-        $this->livres = $livres;
-
-    }
-
-    public function ajouterLivre(Livre $livre) {
-
-        $this->livres[] = $livre;
-
-    }
-
-    public function __toString(): string {
-
-        return "{$this->prenom} {$this->nom}";
-
-    }
-
-    public function afficherBibliographie(): string {
-        $result = "<b>Livres de {$this}</b><br>";
-
-        foreach ($this->livres as $livre) {
-
-            if ($livre->getAuteur() == $this) {
-
-                $result .= $livre;
-
-            }
-
-        }
-
-        return $result;
-
-    }
-
-}
+   }
 
